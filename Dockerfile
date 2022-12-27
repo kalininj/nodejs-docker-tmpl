@@ -20,12 +20,14 @@ RUN echo 'alias ll="ls -als"' >> ~/.profile
 ENV NODE_ENV=development
 ENV alias ll="ls -als"
 ENV SERVER_PORT=3000
-# ENV PATH /node/node_modules/.bin:$PATH
+ENV PATH /node/node_modules/.bin:$PATH
 EXPOSE $SERVER_PORT 9229
 
 COPY --chown=node:node package*.json ./
 RUN \
   npm ci
+
+WORKDIR /node/app  
 
 CMD ["npx", "nodemon", "bin/www" ]
 
