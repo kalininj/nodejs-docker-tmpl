@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach 9229 --inspect",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "localRoot": "${workspaceRoot}",
+      "remoteRoot": "/node",
+      "restart": true
+    }
+  ]
+}
