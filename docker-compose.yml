@@ -6,6 +6,7 @@ services:
       target: ${NODE_ENV}
       args:
         - NODE_ENV=${NODE_ENV}
+    restart: always    
     environment:
       - NODE_ENV=${NODE_ENV}
       - SERVER_PORT=${SERVER_PORT}
