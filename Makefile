@@ -25,7 +25,7 @@ start: ##@dev Start the development environment (detached)
 	docker compose up -d
 
 stop: ##@dev Stop the development environment
-	docker compose down
+	docker compose down -v
 
 logs: ##@dev Stop the development environment
 	docker compose logs -f
