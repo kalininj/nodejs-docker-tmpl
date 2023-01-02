@@ -27,9 +27,9 @@ COPY --chown=node:node package*.json ./
 RUN \
   npm ci
 
-WORKDIR /node/app  
+WORKDIR /node/app
 
-CMD ["npx", "nodemon", "bin/www" ]
+CMD ["npx", "nodemon", "--inspect=0.0.0.0:9229", "." ]
 
 # Test stage
 # ---------------------------------------
@@ -46,9 +46,8 @@ RUN \
 
 COPY --chown=node:node . .
 
-# RUN \
-#   npm run test && \
-#   npm run lint
+RUN \
+  npm run test
 
 # Production stage
 # ---------------------------------------
