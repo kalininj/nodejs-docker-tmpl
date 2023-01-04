@@ -44,7 +44,8 @@ RUN \
   npm ci --no-optional && \
   npm cache clean --force
 
-COPY --chown=node:node . .
+COPY --chown=node:node ./__tests__ ./__tests__
+COPY --chown=node:node ./src ./app
 
 RUN \
   npm run test
@@ -62,9 +63,8 @@ RUN \
   npm ci --no-optional && \
   npm cache clean --force
 
-COPY --chown=node:node ./src ./src  
-COPY --chown=node:node ./bin ./bin  
+COPY --chown=node:node ./src ./app  
 
 EXPOSE $SERVER_PORT
 
-CMD [ "node", "./bin/www" ]
+CMD [ "node", "app/server.js" ]

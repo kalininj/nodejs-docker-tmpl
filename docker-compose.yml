@@ -7,14 +7,16 @@ services:
       args:
         - NODE_ENV=${NODE_ENV}
     restart: always    
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - SERVER_PORT=${SERVER_PORT}
+    # environment:
+    #   - NODE_ENV=${NODE_ENV}
+    #   - SERVER_PORT=${SERVER_PORT}
     ports:
       - "3000:${SERVER_PORT}"
       - "9229:9229"
     volumes:
       - ./src:/node/app
+      - ./__tests__:/node/__tests__
       - /node/app/node_modules
+    env_file: .env  
     # stdin_open: true # docker run -i
     # tty: true        # docker run -t

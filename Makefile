@@ -8,7 +8,7 @@ define release
   docker build --target=production -t $$TAG .
 endef
 
-.PHONY: build-dev build-dev-no-cache build-test start stop shell build dev-start-log
+.PHONY: build-dev build-dev-no-cache test start stop shell build dev-start-log
 
 build-dev: ##@dev Build the application for dev
 	docker compose build
@@ -16,7 +16,7 @@ build-dev: ##@dev Build the application for dev
 build-dev-no-cache: ##@dev Build the application for dev without using cache
 	docker compose build --no-cache
 
-build-test: ##@dev Build the application to run tests
+test: ##@dev Build the application to run tests
 	docker build \
 		--target test \
 		-t app-test .
