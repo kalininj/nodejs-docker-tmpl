@@ -31,7 +31,7 @@ logs: ##@dev Stop the development environment
 	docker compose logs -f
 
 shell: ##@dev Go into the running container (the app name should match what's in docker-compose.yml)
-	docker compose exec app /bin/ash '-l'
+	docker compose exec app /bin/sh '-l'
 
 dev-start-log: 
 	$(MAKE) stop

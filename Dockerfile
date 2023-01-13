@@ -1,6 +1,6 @@
 # Base stage
 # ---------------------------------------
-FROM node:16.15.0-alpine AS base
+FROM node:18-bullseye-slim AS base
 
 # This get shared across later stages
 WORKDIR /node
@@ -13,7 +13,8 @@ FROM base AS development
 
 USER root
 RUN \
-  apk add curl 
+  apt-get -yq update && \
+  apt-get -yq install curl 
 USER node
 RUN echo 'alias ll="ls -als"' >> ~/.profile
 
@@ -45,14 +46,18 @@ RUN \
   npm cache clean --force
 
 COPY --chown=node:node ./__tests__ ./__tests__
-COPY --chown=node:node ./src ./app
+COPY --chown=node:node ./app ./app
 
 RUN \
   npm run test
 
 # Production stage
 # ---------------------------------------
-FROM base AS production
+FROM gcr.io/distroless/nodejs:18
+
+WORKDIR /node
+RUN chown node:node /node
+USER node
 
 ENV NODE_ENV=production
 ENV SERVER_PORT=3000
@@ -63,7 +68,7 @@ RUN \
   npm ci --no-optional && \
   npm cache clean --force
 
-COPY --chown=node:node ./src ./app  
+COPY --chown=node:node ./app ./app  
 
 EXPOSE $SERVER_PORT
 

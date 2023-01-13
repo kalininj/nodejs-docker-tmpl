@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: Test Products Api
+  version: 1.0.0
+
+servers:
+  - url: /
+
+paths:
+  /products:
+    get:
+      summary: Retrieve a list of products
+      operationId: getProductsList
+      tags:
+        - products
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    parameters:
+      - in: query
+        name: sort
+        required: true
+        schema:
+          type: string
+          minimum: 1
+  /products/{id}:        
+    get:
+      summary: Retrieve a single product by ID
+      operationId: getProduct
+      tags:
+        - products
+      responses:
+        '200':
+          description: The requested user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    parameters:
+      - in: path
+        name: id
+        required: false
+        schema:
+          type: string
+          minimum: 1            
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          description: The user's unique ID
+        name:
+          type: string
+          description: The user's name
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: The error message

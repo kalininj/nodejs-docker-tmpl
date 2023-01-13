@@ -1,5 +1,3 @@
-require('dotenv').config({ silent: true });
-
 const http = require('http');
 const { promisify } = require('util');
 const app = require('./app');
