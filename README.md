@@ -2,8 +2,6 @@
 
 This is a set of good defaults and best practices when working with Node.js and Docker.
 
-* Proper shutdown - Graceful shutdown of Node.js using [stoppable](https://github.com/hunterloftis/stoppable).
-* Security - Node runs as the user `node` rather than `root`.
 * Multi stage builds - Single Dockerfile for dev/test and prod images.
 * Testability - Separate test image for testing in a CI environment.
 

@@ -3,9 +3,10 @@
 const express = require('express')
 const openapi = require('express-openapi');
 const bodyParser = require('body-parser')
-
+const path = require('path');
 const YAML = require('yamljs')
-const apiDoc = YAML.load('./api-doc.yml');
+
+const apiDoc = YAML.load(path.resolve(__dirname, './api-doc.yml'));
 
 const app = express()
 const controllers = require('./controllers')
