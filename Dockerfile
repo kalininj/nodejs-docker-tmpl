@@ -53,11 +53,7 @@ RUN \
 
 # Production stage
 # ---------------------------------------
-FROM gcr.io/distroless/nodejs:18
-
-WORKDIR /node
-RUN chown node:node /node
-USER node
+FROM base as preproduction
 
 ENV NODE_ENV=production
 ENV SERVER_PORT=3000
@@ -68,8 +64,19 @@ RUN \
   npm ci --no-optional && \
   npm cache clean --force
 
-COPY --chown=node:node ./app ./app  
+COPY --chown=node:node ./app ./app
+
+# ---------------------------------------
+FROM gcr.io/distroless/nodejs:18 as production
+
+WORKDIR /node
+
+ENV NODE_ENV=production
+ENV SERVER_PORT=3000
+
+COPY --from=preproduction /node/node_modules ./node_modules
+COPY --from=preproduction /node/app .
 
 EXPOSE $SERVER_PORT
 
-CMD [ "node", "app/server.js" ]
+CMD ["server.js" ]

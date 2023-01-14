@@ -11,18 +11,14 @@ module.exports = {
               return send.apply(res, args);
           }
           const body = JSON.parse(args[0]);
-          console.log(body, typeof body, 1, args)
           let validation = res.validateResponse(res.statusCode, body);
-          console.log(validation)
           let validationMessage;
           if (validation === undefined) {
               validation = { message: undefined, errors: undefined };
           }
           if (validation.errors) {
-            console.log(validation.errors)
               const errorList = Array.from(validation.errors).map(_ => _.message).join(',');
               validationMessage = `Invalid response for status code ${res.statusCode}: ${errorList}`;
-              console.warn(validationMessage);
               // Set to avoid a loop, and to provide the original status code
               res.set('x-express-openapi-validation-error-for', res.statusCode.toString());
           }
