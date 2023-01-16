@@ -19,7 +19,7 @@ USER node
 RUN echo 'alias ll="ls -als"' >> ~/.profile
 
 ENV NODE_ENV=development
-ENV alias ll="ls -als"
+ENV SHOW_DOCS=true
 ENV SERVER_PORT=3000
 ENV PATH /node/node_modules/.bin:$PATH
 EXPOSE $SERVER_PORT 9229

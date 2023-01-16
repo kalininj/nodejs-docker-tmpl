@@ -5,12 +5,18 @@ const openapi = require('express-openapi');
 const bodyParser = require('body-parser')
 const path = require('path');
 const YAML = require('yamljs')
+const swaggerUi = require("swagger-ui-express")
 
-const apiDoc = YAML.load(path.resolve(__dirname, './api-doc.yml'));
+const apiDocPath = path.resolve(__dirname, './api-doc.yml')
+const apiDoc = YAML.load(apiDocPath);
 
 const app = express()
 const controllers = require('./controllers')
 const openAPICustom = require('./lib/openAPI')
+
+if (process.env.SHOW_DOCS) {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
+}
 
 openapi.initialize({
   app,
