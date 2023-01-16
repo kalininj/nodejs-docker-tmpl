@@ -76,6 +76,7 @@ ENV SERVER_PORT=3000
 
 COPY --from=preproduction /node/node_modules ./node_modules
 COPY --from=preproduction /node/app .
+COPY --from=preproduction /node/package.json .
 
 EXPOSE $SERVER_PORT
 

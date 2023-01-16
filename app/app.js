@@ -1,18 +1,22 @@
 'use strict'
 
-const express = require('express')
-const openapi = require('express-openapi');
-const bodyParser = require('body-parser')
-const path = require('path');
-const YAML = require('yamljs')
-const swaggerUi = require("swagger-ui-express")
+import express from 'express'
+import openapi from 'express-openapi'
+import bodyParser from 'body-parser'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import YAML from 'yamljs'
+import swaggerUi from "swagger-ui-express"
 
+import controllers from './controllers.js'
+import { validateAllResponses } from './lib/openAPI.js'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const apiDocPath = path.resolve(__dirname, './api-doc.yml')
 const apiDoc = YAML.load(apiDocPath);
 
 const app = express()
-const controllers = require('./controllers')
-const openAPICustom = require('./lib/openAPI')
 
 if (process.env.SHOW_DOCS) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
@@ -22,7 +26,7 @@ openapi.initialize({
   app,
   apiDoc: {
     ...apiDoc,
-    'x-express-openapi-additional-middleware': [openAPICustom.validateAllResponses],
+    'x-express-openapi-additional-middleware': [validateAllResponses],
     'x-express-openapi-validation-strict': true
   },
   consumesMiddleware: {
@@ -35,4 +39,4 @@ openapi.initialize({
   operations: controllers
 }); 
 
-module.exports = app
+export default app

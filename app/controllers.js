@@ -4,11 +4,11 @@ const products = [
 
 const controllers = {
   getProductsList: function(req, res) {
-    res.json(products);
+    res.status(200).json(products);
   },
   getProduct: function(req, res) {
     res.status(200).json(products[0]);
   }
 }
 
-module.exports = controllers
+export default controllers

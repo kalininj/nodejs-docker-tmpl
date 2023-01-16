@@ -1,6 +1,6 @@
-const request = require("supertest")
+import request from "supertest"
 
-const app = require("../app/app")
+import app from "../app/app"
 
 describe('e2e', () => {
   it('should load 1 product', async () => {
