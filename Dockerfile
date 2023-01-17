@@ -28,9 +28,9 @@ COPY --chown=node:node package*.json ./
 RUN \
   npm ci
 
-WORKDIR /node/app
+# WORKDIR /node/app
 
-CMD ["npx", "nodemon", "--inspect=0.0.0.0:9229", "server.js" ]
+CMD ["npx", "nodemon", "--inspect=0.0.0.0:9229", "app/server.js" ]
 
 # Test stage
 # ---------------------------------------
