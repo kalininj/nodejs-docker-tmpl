@@ -42,8 +42,7 @@ ENV SERVER_PORT=3000
 COPY --chown=node:node package*.json ./
 
 RUN \
-  npm ci --no-optional && \
-  npm cache clean --force
+  npm ci --no-optional
 
 COPY --chown=node:node ./__tests__ ./__tests__
 COPY --chown=node:node ./app ./app
@@ -61,8 +60,7 @@ ENV SERVER_PORT=3000
 COPY --chown=node:node package*.json ./
 
 RUN \
-  npm ci --no-optional && \
-  npm cache clean --force
+  npm ci --no-optional --production
 
 COPY --chown=node:node ./app ./app
 
