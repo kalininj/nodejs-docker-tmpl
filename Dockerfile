@@ -30,7 +30,7 @@ RUN \
 
 # WORKDIR /node/app
 
-CMD ["npx", "nodemon", "--inspect=0.0.0.0:9229", "app/server.js" ]
+CMD ["node", "--watch", "--inspect=0.0.0.0:9229", "app/server.js" ]
 
 # Test stage
 # ---------------------------------------
