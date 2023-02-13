@@ -15,7 +15,7 @@ services:
       - "9229:9229"
     volumes:
       - ./:/node/
-      - /node/app/node_modules
+      - /node/node_modules
     env_file: .env  
     # stdin_open: true # docker run -i
     # tty: true        # docker run -t
